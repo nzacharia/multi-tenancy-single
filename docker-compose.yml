@@ -1,0 +1,22 @@
+version: '3'
+services:
+  gradle_build:
+    image: gradle:7.5.1-jdk17
+    container_name: gradle_build
+    volumes:
+      - .:/opt/app
+    working_dir: /opt/app
+
+  service:
+    container_name: service
+    hostname: service
+    build:
+      dockerfile: ./Dockerfile.service
+    ports:
+      - "8080:8080"
+
+  k6:
+    image: grafana/k6
+    volumes:
+      - .:/opt/app
+    working_dir: /opt/app
