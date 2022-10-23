@@ -28,7 +28,7 @@ public class Stepdefs {
 
     @When("^I call the hello world endpoint$")
     public void i_call_the_hello_world_endpoint() {
-        System.out.println(String.format("Hitting endpoint: %s", baseUri));
+        System.out.printf("Hitting endpoint: %s%n", baseUri);
         response = request.when().get("/hello");
     }
 
