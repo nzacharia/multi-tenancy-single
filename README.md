@@ -137,14 +137,14 @@ If this doesn't work ensure you followed the instructions when enabling the mini
 
 ### Run the functional tests against deployed application
 
-This shows how you can run the same tests locally and on a deployed verison.
+This shows how you can run the same tests locally and on a deployed version.
 
 ```
-SERVICE_ENDPOINT="http://localhost:80" ./gradlew functional:test
+SERVICE_ENDPOINT="http://localhost:80/service" ./gradlew functional:test
 ```
 
 ### Run the non-functional tests against deployed application
 
 ```
-SERVICE_ENDPOINT="http://localhost:80" k6 run ./nft/ramp-up.js
+SERVICE_ENDPOINT="http://localhost:80/service" k6 run ./nft/ramp-up/test.js
 ```

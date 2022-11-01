@@ -17,13 +17,13 @@ metadata:
   name: reference-service
   namespace: reference-service-showcase
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /
+          - path: /service(/|$)(.*)
             pathType: Prefix
             backend:
               service:
