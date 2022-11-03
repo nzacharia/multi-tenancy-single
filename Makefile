@@ -22,7 +22,7 @@ local-stubbed-functional:
 .PHONY: local-stubbed-nft
 local-stubbed-nft:
 	docker compose build service downstream --no-cache
-    docker compose up -d service downstream
+	docker compose up -d service downstream
 	docker compose run --rm k6 run ./nft/ramp-up/test.js
 	docker compose down
 
