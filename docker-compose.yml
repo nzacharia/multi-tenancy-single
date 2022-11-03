@@ -10,6 +10,8 @@ services:
   service:
     container_name: service
     hostname: service
+    environment:
+      - DOWNSTREAM_HOST=podinfo
     build:
       dockerfile: ./Dockerfile.service
     ports:
@@ -20,3 +22,11 @@ services:
     volumes:
       - .:/opt/app
     working_dir: /opt/app
+
+  downstream:
+    container_name: podinfo
+    hostname: podinfo
+    image: stefanprodan/podinfo:6.2.2
+    ports:
+      - "9898:9898"
+

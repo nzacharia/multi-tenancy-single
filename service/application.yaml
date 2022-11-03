@@ -11,12 +11,16 @@ management:
     shutdown.enabled: false
   metrics.export.graphite.enabled: false
 
-
-
 server:
   shutdown: GRACEFUL
   grace-period: 30s
-  drainingMs: 10000
+  drainingMs: 0
 spring:
   lifecycle:
       timeout-per-shutdown-phase: 30s
+
+downstream:
+  url: http://${DOWNSTREAM_HOST:localhost}
+  port: 9898
+  readTimeoutMs: 5000
+  conenctTimeoutMs: 1000
