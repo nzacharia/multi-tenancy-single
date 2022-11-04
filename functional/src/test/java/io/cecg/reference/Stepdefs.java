@@ -9,6 +9,10 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.http.HttpStatus;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
@@ -31,9 +35,30 @@ public class Stepdefs {
         System.out.printf("Hitting endpoint: %s%n", baseUri);
         response = request.when().get("/hello");
     }
+    @When("^I call the delay endpoint with (\\d+) seconds$")
+    public void i_call_delay_endpoint(int delaySeconds) {
+        System.out.printf("Hitting endpoint: %s%n", baseUri);
+        response = request.when().get(String.format("/delay/%d", delaySeconds));
+    }
+
+    @When("^I call the status endpoint with (\\d+) status code")
+    public void i_call_status_endpoint(int status) {
+        System.out.printf("Hitting endpoint: %s%n", baseUri);
+        response = request.when().get(String.format("/status/%d", status));
+    }
 
     @Then("^an ok response is returned$")
     public void an_ok_response_is_returned() {
         assertEquals("Non 200 status code received", SC_OK, response.statusCode());
+    }
+
+    @Then("^an '(\\d+)' response is returned$")
+    public void a_response_is_returned(int status) {
+        assertEquals("Non "+status+" status code received", status, response.statusCode());
+    }
+
+    @Then("^the response body is$")
+    public void a_response_is_returned(String body) throws JSONException {
+        JSONAssert.assertEquals(response.getBody().asPrettyString(), body, JSONCompareMode.STRICT);
     }
 }

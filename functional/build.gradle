@@ -7,6 +7,8 @@ dependencies {
     testImplementation('io.cucumber:cucumber-junit:7.8.+')
     testImplementation('io.rest-assured:rest-assured:5.2.+')
     testImplementation('org.junit.vintage:junit-vintage-engine:5.9.0')
+    testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.1'
+
 }
 
 // Test will be called from make target stubbed-functional
