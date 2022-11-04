@@ -23,7 +23,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-jetty")
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'com.google.guava:guava:31.1-jre'
-
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 
 
 	compileOnly 'org.projectlombok:lombok:1.18.24'

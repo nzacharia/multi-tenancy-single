@@ -35,6 +35,13 @@ public class Stepdefs {
         System.out.printf("Hitting endpoint: %s%n", baseUri);
         response = request.when().get("/hello");
     }
+
+    @When("^I call the swagger endpoint$")
+    public void i_call_the_swagger_endpoint() {
+        System.out.printf("Hitting endpoint: %s%n", baseUri);
+        response = request.when().get("/swagger-ui/");
+    }
+
     @When("^I call the delay endpoint with (\\d+) seconds$")
     public void i_call_delay_endpoint(int delaySeconds) {
         System.out.printf("Hitting endpoint: %s%n", baseUri);
