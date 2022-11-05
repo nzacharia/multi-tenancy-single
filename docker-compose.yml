@@ -12,10 +12,13 @@ services:
     hostname: service
     environment:
       - DOWNSTREAM_HOST=podinfo
+      - POSTGRES_HOST=database
     build:
       dockerfile: ./Dockerfile.service
     ports:
       - "8080:8080"
+    depends_on:
+      - "database"
 
   k6:
     image: grafana/k6
@@ -29,4 +32,15 @@ services:
     image: stefanprodan/podinfo:6.2.2
     ports:
       - "9898:9898"
+
+  database:
+    container_name: database
+    hostname: database
+    image: 'postgres:15.0-bullseye'
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=password
 
