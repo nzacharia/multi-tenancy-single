@@ -23,10 +23,8 @@ public class MainExceptionHandler {
     }
 
     @ExceptionHandler(ApiException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleApiException(ApiException e) {
-
-        return new ErrorResponse(e.getMessage());
+    public ResponseEntity<ErrorResponse> handleApiException(ApiException e) {
+        return new ResponseEntity<>(new ErrorResponse(e.getMessage()), e.getStatusCode());
     }
 
 }

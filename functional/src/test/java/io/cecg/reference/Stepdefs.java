@@ -42,7 +42,7 @@ public class Stepdefs {
         response = request.when().get("/swagger-ui/");
     }
 
-    @When("^I call the delay endpoint with (\\d+) seconds$")
+    @When("^I call the downstream endpoint with (\\d+) seconds of response delay$")
     public void i_call_delay_endpoint(int delaySeconds) {
         System.out.printf("Hitting endpoint: %s%n", baseUri);
         response = request.when().get(String.format("/delay/%d", delaySeconds));

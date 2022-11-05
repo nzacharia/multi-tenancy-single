@@ -1,6 +1,7 @@
 package io.cecg.referenceapplication.domain.http;
 
 import io.cecg.referenceapplication.api.exceptions.ApiException;
+import io.cecg.referenceapplication.api.exceptions.DownstreamTimeoutException;
 import io.cecg.referenceapplication.api.exceptions.DownstremException;
 import io.cecg.referenceapplication.config.DownstreamConfig;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class DownstreamConnector {
             throw new DownstremException("Client failed because of unknown status code requested");
         } catch(ResourceAccessException e) {
             log.error("Timeout Exception");
-            throw new DownstremException("Timeout accessing the server");
+            throw new DownstreamTimeoutException("Timeout calling a downstream endpoint");
         }
         catch (Exception e) {
             log.error("Something went wrong", e);
