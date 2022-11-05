@@ -11,8 +11,12 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.http.HttpStatus;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.JSONParser;
+
+import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
@@ -24,16 +28,41 @@ public class Stepdefs {
     private final String baseUri = SystemUtils.getEnvironmentVariable("SERVICE_ENDPOINT", "http://service:8080");
     private RequestSpecification request;
     private Response response;
+    private String unique_id;
 
     @Given("^a rest service$")
     public void aRestService() {
         request = given().baseUri(baseUri);
     }
 
+    @Given("^a random UUID$")
+    public void a_random_uuid() {
+        unique_id = UUID.randomUUID().toString();
+    }
+
+
     @When("^I call the hello world endpoint$")
     public void i_call_the_hello_world_endpoint() {
         System.out.printf("Hitting endpoint: %s%n", baseUri);
         response = request.when().get("/hello");
+    }
+
+    @When("^I call the get counter with the random UUID")
+    public void i_call_get_counter_uuid() {
+        System.out.printf("Hitting endpoint: %s%n", baseUri);
+        response = request.when().get("/counter/" + unique_id);
+    }
+
+    @When("^I call the get counter with the name '(.*)'$")
+    public void i_call_get_counter_with_name(String name) {
+        System.out.printf("Hitting endpoint: %s%n", baseUri);
+        response = request.when().get("/counter/" + name);
+    }
+
+    @When("^I call the put counter with the random UUID")
+    public void i_call_put_counter_uuid() {
+        System.out.printf("Hitting endpoint: %s%n", baseUri);
+        response = request.when().put("/counter/" + unique_id);
     }
 
     @When("^I call the swagger endpoint$")
@@ -61,7 +90,15 @@ public class Stepdefs {
 
     @Then("^an '(\\d+)' response is returned$")
     public void a_response_is_returned(int status) {
-        assertEquals("Non "+status+" status code received", status, response.statusCode());
+        assertEquals("Non " + status + " status code received", status, response.statusCode());
+    }
+
+    @Then("^the response body field '(.*)' is equal to '(.*)'")
+    public void compare_body_field(String field, String value) throws JSONException {
+
+        JSONObject resp = (JSONObject) JSONParser.parseJSON(response.getBody().asPrettyString());
+        assertEquals("Field value not matching", String.valueOf(resp.get(field)), value);
+
     }
 
     @Then("^the response body is$")
