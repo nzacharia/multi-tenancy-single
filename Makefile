@@ -14,13 +14,10 @@ build:
 
 .PHONY: local-stubbed-functional
 local-stubbed-functional:
-	mkdir -p db-data
-	ls -la
 	docker compose build service downstream database --no-cache
 	docker compose up -d service downstream database
 	docker compose run --rm gradle_build sh -c 'gradle functional:clean functional:test'
 	docker compose down
-	ls -la
 	sudo rm -rf db-data
 
 .PHONY: local-stubbed-nft
@@ -50,7 +47,7 @@ integrated:
 .PHONY: run-local
 run-local:
 	docker compose build service downstream --no-cache
-	docker compose up -d downstream
+	docker compose up -d downstream database
 	docker compose run --service-ports --rm service
 
 # Minikube local tasks
