@@ -18,7 +18,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - "database"
+      database:
+        condition: service_healthy
 
   k6:
     image: grafana/k6
@@ -41,6 +42,11 @@ services:
       - 5432:5432
     volumes:
       - ./db-data/:/var/lib/postgresql/data/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     environment:
       - POSTGRES_PASSWORD=password
 
