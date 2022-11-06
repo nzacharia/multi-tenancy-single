@@ -14,15 +14,17 @@ build:
 
 .PHONY: local-stubbed-functional
 local-stubbed-functional:
-	rm -rf db-data
+	mkdir -p db-data
+	ls -la
 	docker compose build service downstream database --no-cache
 	docker compose up -d service downstream database
 	docker compose run --rm gradle_build sh -c 'gradle functional:clean functional:test'
 	docker compose down
+	ls -la
+	sudo rm -rf db-data
 
 .PHONY: local-stubbed-nft
 local-stubbed-nft:
-	rm -rf db-data
 	docker compose build service downstream database --no-cache
 	docker compose up -d database downstream service
 	docker compose run --rm k6 run ./nft/ramp-up/test.js
