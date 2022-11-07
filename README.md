@@ -140,11 +140,14 @@ If this doesn't work ensure you followed the instructions when enabling the mini
 This shows how you can run the same tests locally and on a deployed version.
 
 ```
-SERVICE_ENDPOINT="http://localhost:80/service" ./gradlew functional:test
+SERVICE_ENDPOINT="http://localhost:8080" ./gradlew functional:test
 ```
 
 ### Run the non-functional tests against deployed application
 
 ```
-SERVICE_ENDPOINT="http://localhost:80/service" k6 run ./nft/ramp-up/test.js
+SERVICE_ENDPOINT="http://localhost:8080" k6 run ./nft/ramp-up/test.js
 ```
+
+### Swagger
+Swagger is embedded in the server and available at http://localhost:8080/swagger-ui/
