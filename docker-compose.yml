@@ -17,10 +17,15 @@ services:
       dockerfile: ./Dockerfile.service
     ports:
       - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/hello"]
+      interval: 5s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
     depends_on:
       database:
         condition: service_healthy
-
   k6:
     image: grafana/k6
     volumes:
@@ -50,3 +55,8 @@ services:
     environment:
       - POSTGRES_PASSWORD=password
 
+  waitForHealthyPods:
+    image: alpine:latest
+    depends_on:
+      service:
+        condition: service_healthy
