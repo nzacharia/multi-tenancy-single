@@ -129,7 +129,7 @@ reference-service   nginx   *       192.168.49.2   80      144m
 If on Linux you can now access the service on the IP address (which is the minikube IP).
 
 ```
-curl localhost/hello
+curl localhost/service/hello
 Hello World!%
 ```
 
