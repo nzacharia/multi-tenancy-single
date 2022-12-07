@@ -18,6 +18,9 @@ spec:
       containers:
         - name: reference-service
           image: chbatey/reference-service:latest
+          env:
+            - name: POSTGRES_HOST
+              value: "reference-db-service.reference-service-showcase.svc.cluster.local"
           ports:
             - containerPort: 8080
 ---
