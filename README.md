@@ -103,7 +103,16 @@ make docker-push
 
 ```
 kubectl apply -f service/k8s-manifests/namespace.yml
+kubectl apply -f service/k8s-manifests/pv-dbdata.yml
+kubectl apply -f service/k8s-manifests/pvc-dbdata.yml
+kubectl apply -f service/k8s-manifests/secret-db.yml
 kubectl apply -f service/k8s-manifests/deployment.yml
+```
+
+Deploy the ingress and service:
+
+```
+kubectl apply -f service/k8s-manifests/expose.yml
 ```
 
 The service should be running:
@@ -112,12 +121,6 @@ The service should be running:
 kubectl get pods -n reference-service-showcase
 NAME                                 READY   STATUS    RESTARTS   AGE
 reference-service-7cff68d485-q8mw5   1/1     Running   0          142m
-```
-
-Deploy the ingress and service:
-
-```
-kubectl apply -f service/k8s-manifests/expose.yml
 ```
 
 ```
