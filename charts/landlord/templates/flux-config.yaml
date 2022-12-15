@@ -10,7 +10,7 @@ metadata:
   name: {{ $tentantName }}
   namespace: {{ $tentantName }}
 spec:
-  interval: 30m
+  interval: 10s
   url: https://github.com/nzacharia/multi-tenancy-single
   ref:
     branch: main
@@ -21,7 +21,7 @@ metadata:
   name: {{ $tentantName }}
   namespace: {{ $tentantName }}
 spec:
-  interval: 1h
+  interval: 20s
   path: {{ default "./" $flux.path  }}
   prune: true
   serviceAccountName: flux
