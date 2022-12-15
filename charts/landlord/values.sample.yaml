@@ -1,0 +1,31 @@
+org:
+ - cecg:
+    flux:
+      path: ./team-manifests/cecg
+    tenants:
+     - tenant-a:
+        flux:
+           path: ./team-manifests/tenant-a
+        subnamespaces:
+          - name: app-1
+            flux:
+              path: ./team-manifests/tenant-a/app-1
+          - name: app-2
+            flux:
+              path: ./team-manifests/tenant-a/app-2
+          - name: team-a-monitoring
+            flux:
+              path: ./team-manifests/tenant-a/team-a-monitoring
+     - tenant-b:
+        flux:
+           path: ./team-manifests/tenant-b
+        subnamespaces:
+         - name: team-b-monitoring
+           flux:
+              path: ./team-manifests/tenant-b/team-b-monitoring
+         - name: app-4
+           flux:
+              path: ./team-manifests/tenant-b/app-4
+         - name: app-3
+           flux:
+              path: ./team-manifests/tenant-b/app-3

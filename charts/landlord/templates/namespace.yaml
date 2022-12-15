@@ -1,0 +1,80 @@
+
+
+{{- range .Values.org }}
+{{- range $name, $values := . }}
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $name }}
+  labels:
+    name: {{ $name }}
+    platform/type: org
+    {{- include "landlord.labels" $ | nindent 4 }}
+---
+{{ end }}
+{{ end }}
+
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants}}
+{{- range $tentantName , $tenantValue := .}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $tentantName }}
+  labels:
+    name: {{ $tentantName }}
+    platform/type: tenant
+    {{- include "landlord.labels" $ | nindent 4 }}
+---
+apiVersion: hnc.x-k8s.io/v1alpha2
+kind: HierarchyConfiguration
+metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
+    "helm.sh/hook": post-install, post-upgrade
+  name: hierarchy
+  namespace: {{ $tentantName }}
+spec:
+  parent: {{ $orgName }}                                                                                 
+---
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants}}
+{{- range $tentantName , $tenantValue := .}}
+{{- range $subnsName := $tenantValue.subnamespaces}}
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $subnsName.name }}
+  labels:
+    name: {{ $subnsName.anme }}
+    platform/type: subnamespace
+    {{- include "landlord.labels" $ | nindent 4 }}
+---
+apiVersion: hnc.x-k8s.io/v1alpha2
+kind: HierarchyConfiguration
+metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
+    "helm.sh/hook": post-install, post-upgrade
+  name: hierarchy
+  namespace: {{ $subnsName.name }}
+spec:
+  parent: {{ $tentantName }}                                                                                 
+---
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

@@ -1,0 +1,91 @@
+
+
+
+{{- range .Values.org }}
+{{- range $name, $values := . }}
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: flux
+  namespace: {{ $name }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: flux-rb-org
+  namespace: {{ $name }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+  - name: flux
+    namespace: {{ $name }}
+    kind: ServiceAccount
+---
+{{ end }}
+{{ end }}
+
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants}}
+{{- range $tentantName , $tenantValue := .}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: flux
+  namespace: {{ $tentantName }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: flux-rb-tenant
+  namespace: {{ $tentantName }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+  - name: flux
+    namespace: {{ $tentantName }}
+    kind: ServiceAccount
+---
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants}}
+{{- range $tentantName , $tenantValue := .}}
+{{- range $subnsName := $tenantValue.subnamespaces}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: flux
+  namespace: {{ $subnsName.name }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: flux-rb-subns
+  namespace: {{ $subnsName.name }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+  - name: flux
+    namespace: {{ $subnsName.name }}
+    kind: ServiceAccount
+---
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
