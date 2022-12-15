@@ -1,0 +1,80 @@
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants }}
+{{- range $tentantName , $tenantValue := . | default dict -}}
+{{- $flux := $tenantValue.flux | default dict -}}
+
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: {{ $tentantName }}
+  namespace: {{ $tentantName }}
+spec:
+  interval: 30m
+  url: https://github.com/nzacharia/multi-tenancy-single
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: {{ $tentantName }}
+  namespace: {{ $tentantName }}
+spec:
+  interval: 1h
+  path: {{ default "./" $flux.path  }}
+  prune: true
+  serviceAccountName: flux
+  targetNamespace: {{ $tentantName }}
+  sourceRef:
+    kind: GitRepository
+    name: {{ $tentantName }}
+    namespace: {{ $tentantName }}
+---
+
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants }}
+{{- range $tentantName , $tenantValue := . }}
+{{- range $subnsName := $tenantValue.subnamespaces}}
+
+
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: {{ $subnsName.name }}
+  namespace: {{ $subnsName.name }}
+spec:
+  interval: 30m
+  url: https://github.com/nzacharia/multi-tenancy-single
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: {{ $subnsName.name }}
+  namespace: {{ $subnsName.name }}
+spec:
+  interval: 1h
+  path: {{ default "./" $subnsName.flux.path  }}
+  prune: true
+  serviceAccountName: flux
+  targetNamespace: {{ $subnsName.name }}
+  sourceRef:
+    kind: GitRepository
+    name: {{ $subnsName.name }}
+    namespace: {{ $subnsName.name }}
+---
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

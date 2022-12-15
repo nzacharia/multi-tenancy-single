@@ -26,6 +26,3 @@ org:
          - name: app-4
            flux:
               path: ./team-manifests/tenant-b/app-4
-         - name: app-3
-           flux:
-              path: ./team-manifests/tenant-b/app-3
