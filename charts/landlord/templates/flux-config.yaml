@@ -57,6 +57,25 @@ spec:
   ref:
     branch: main
 ---
+{{- if hasSuffix "-monitoring" $subnsName.name }}
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: {{ $subnsName.name }}
+  namespace: {{ $subnsName.name }}
+spec:
+  interval: 10s
+  chart:
+    spec:
+      chart: {{ default "./" $subnsName.flux.path  }}
+      version: '4.3.0'
+      sourceRef:
+        kind: GitRepository
+        name: {{ $subnsName.name }}
+        namespace: {{ $subnsName.name }}
+      interval: 20s
+{{- else }}
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
@@ -73,6 +92,8 @@ spec:
     name: {{ $subnsName.name }}
     namespace: {{ $subnsName.name }}
 ---
+{{- end }}
+
 {{- end }}
 {{- end }}
 {{- end }}
