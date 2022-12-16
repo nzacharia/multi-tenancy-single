@@ -13,17 +13,16 @@ spec:
     spec:
       containers:
         - name: app-1
-          image: paulbouwer/hello-kubernetes:1.10
+          image: stefanprodan/podinfo:latest
           ports:
             - name: http
               containerPort: 5000
           resources:
             requests:
-              memory: 248Mi
-              cpu: 150m
+              memory: 64Mi
+              cpu: 100m
             limits:
-              memory: 512Mi
-              cpu: 500m
+              memory: 256Mi
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
