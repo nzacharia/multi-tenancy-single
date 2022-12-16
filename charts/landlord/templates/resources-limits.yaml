@@ -1,0 +1,73 @@
+
+
+
+
+{{- range .Values.org }}
+{{- range $name, $values := . }}
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sContainerLimits
+metadata:
+  name: {{ $name }}
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    cpu: "1000m"
+    memory: "1Gi"
+---
+{{ end }}
+{{ end }}
+
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants}}
+{{- range $tentantName , $tenantValue := .}}
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sContainerLimits
+metadata:
+  name: {{ $tentantName }}
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    cpu: "1000m"
+    memory: "1Gi"
+---
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants}}
+{{- range $tentantName , $tenantValue := .}}
+{{- range $subnsName := $tenantValue.subnamespaces}}
+
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sContainerLimits
+metadata:
+  name: {{ $subnsName.name }}
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    cpu: "1000m"
+    memory: "1Gi"
+---                                                                              
+
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}    
