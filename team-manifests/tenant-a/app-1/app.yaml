@@ -19,11 +19,11 @@ spec:
               containerPort: 9898
           resources:
             requests:
-              memory: 64Mi
+              memory: 248Mi
               cpu: 100m
             limits:
-              memory: 248Mi
-              cpu: 200m
+              memory: 512Mi
+              cpu: 500m
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -33,7 +33,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules: 
-     - host: app-1.tenant-a.cecg
+     - host: app-1.local.teant-a.cecg
        http:
         paths:
           - path: /
