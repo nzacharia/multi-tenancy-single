@@ -13,35 +13,35 @@ spec:
     spec:
       containers:
         - name: app-2
-          image: paulbouwer/hello-kubernetes:1.10
+          image: stefanprodan/podinfo:latest
           ports:
             - name: http
-              containerPort: 5000
+              containerPort: 9898
           resources:
             requests:
-              memory: 32Mi
-              cpu: 50m
-            limits:
               memory: 128Mi
+              cpu: 100m
+            limits:
+              memory: 256Mi
               cpu: 500m
               
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: app-2
+  name: app-2-ingress
 spec:
-  rules:
-    - host: app-2.local.mikesir87.training
-      http:
+  rules: 
+     - host: app-2.tenant-a.cecg.local
+       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: app-2
-              port: 
-                number: 5000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app-2
+                port:
+                  name: http
 ---
 apiVersion: v1
 kind: Service
@@ -51,4 +51,6 @@ spec:
   selector:
     app: app-2
   ports:
-    - port: 5000
+  - name: http
+    protocol: TCP
+    port: 9898
