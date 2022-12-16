@@ -33,7 +33,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules: 
-     - host: app-1.local.teant-a.cecg
+     - host: app-1.local.mikesir87.training
        http:
         paths:
           - path: /
