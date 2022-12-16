@@ -41,7 +41,7 @@ spec:
               service:
                 name: app-1
                 port:
-                  name: 8080
+                  name: http
 ---
 apiVersion: v1
 kind: Service
@@ -51,5 +51,7 @@ spec:
   selector:
     app: app-1
   ports:
-    - port: 8080
+  - name: http
+    protocol: TCP
+    port: 8080
 
