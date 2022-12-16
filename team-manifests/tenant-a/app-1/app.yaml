@@ -33,7 +33,8 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules: 
-     - http:
+     - host: app-1.local.mikesir87.training
+       http:
         paths:
           - path: /
             pathType: Prefix
