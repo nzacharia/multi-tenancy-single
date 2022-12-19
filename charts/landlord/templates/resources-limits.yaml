@@ -1,0 +1,32 @@
+
+
+
+{{- range .Values.org }}
+{{- range $orgName, $orgValues := . }}
+{{- range $orgValues.tenants}}
+{{- range $tentantName , $tenantValue := .}}
+{{- range $subnsName := $tenantValue.subnamespaces}}
+
+{{- if not (hasSuffix "-monitoring" $subnsName.name) }}
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sContainerLimits
+metadata:
+  name: {{ $subnsName.name }}
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+  {{- range $subnsName.podLimits}}
+    cpu: {{ $subnsName.podLimits.cpu }}
+    memory: {{ $subnsName.podLimits.memory }}
+  {{ end }}      
+---  
+{{ end }}                                                                            
+{{ end }}
+
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}    
