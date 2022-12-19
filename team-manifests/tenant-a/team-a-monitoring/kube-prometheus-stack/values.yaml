@@ -1657,7 +1657,13 @@ prometheusOperator:
         tag: v1.3.0
         sha: ""
         pullPolicy: IfNotPresent
-      resources: {}
+      resources:
+        limits:
+          cpu: 10m
+          memory: 200Mi
+        requests:
+          cpu: 10m
+          memory: 20Mi
       ## Provide a priority class name to the webhook patching job
       ##
       priorityClassName: ""
