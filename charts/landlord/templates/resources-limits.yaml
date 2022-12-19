@@ -6,7 +6,8 @@
 {{- range $orgValues.tenants}}
 {{- range $tentantName , $tenantValue := .}}
 {{- range $subnsName := $tenantValue.subnamespaces}}
-{{- range $subnsName.podLimits}}
+
+{{- if not (hasSuffix "-monitoring" $subnsName.name) }}
 apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: K8sContainerLimits
 metadata:
@@ -17,11 +18,14 @@ spec:
       - apiGroups: [""]
         kinds: ["Pod"]
   parameters:
+  {{- range $subnsName.podLimits}}
     cpu: {{ $subnsName.podLimits.cpu }}
     memory: {{ $subnsName.podLimits.memory }}
----                                                                              
+  {{ end }}      
+---  
+{{ end }}                                                                            
 {{ end }}
-{{ end }}
+
 {{ end }}
 {{ end }}
 {{ end }}
