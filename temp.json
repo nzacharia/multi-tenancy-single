@@ -1,0 +1,70 @@
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "annotations": {
+      "meta.helm.sh/release-name": "hnc-namespaces",
+      "meta.helm.sh/release-namespace": "default"
+    },
+    "creationTimestamp": "2022-12-19T12:30:36Z",
+    "deletionTimestamp": "2022-12-19T12:48:58Z",
+    "labels": {
+      "app.kubernetes.io/instance": "hnc-namespaces",
+      "app.kubernetes.io/managed-by": "Helm",
+      "app.kubernetes.io/name": "multi-tenancy",
+      "app.kubernetes.io/version": "0.0.1",
+      "helm.sh/chart": "multi-tenancy-0.1.0",
+      "hnc.x-k8s.io/included-namespace": "true",
+      "kubernetes.io/metadata.name": "team-a-monitoring",
+      "name": "team-a-monitoring",
+      "platform/type": "subnamespace",
+      "team-a-monitoring.tree.hnc.x-k8s.io/depth": "0"
+    },
+    "name": "team-a-monitoring",
+    "resourceVersion": "16868",
+    "uid": "273d57e3-25db-4b28-b059-8134802260c2"
+  },
+  "spec": {
+    "finalizers": []
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastTransitionTime": "2022-12-19T12:49:09Z",
+        "message": "All resources successfully discovered",
+        "reason": "ResourcesDiscovered",
+        "status": "False",
+        "type": "NamespaceDeletionDiscoveryFailure"
+      },
+      {
+        "lastTransitionTime": "2022-12-19T12:49:09Z",
+        "message": "All legacy kube types successfully parsed",
+        "reason": "ParsedGroupVersions",
+        "status": "False",
+        "type": "NamespaceDeletionGroupVersionParsingFailure"
+      },
+      {
+        "lastTransitionTime": "2022-12-19T12:49:09Z",
+        "message": "All content successfully deleted, may be waiting on finalization",
+        "reason": "ContentDeleted",
+        "status": "False",
+        "type": "NamespaceDeletionContentFailure"
+      },
+      {
+        "lastTransitionTime": "2022-12-19T12:49:09Z",
+        "message": "Some resources are remaining: helmreleases.helm.toolkit.fluxcd.io has 1 resource instances",
+        "reason": "SomeResourcesRemain",
+        "status": "True",
+        "type": "NamespaceContentRemaining"
+      },
+      {
+        "lastTransitionTime": "2022-12-19T12:49:09Z",
+        "message": "Some content in the namespace has finalizers remaining: finalizers.fluxcd.io in 1 resource instances",
+        "reason": "SomeFinalizersRemain",
+        "status": "True",
+        "type": "NamespaceFinalizersRemaining"
+      }
+    ],
+    "phase": "Terminating"
+  }
+}
