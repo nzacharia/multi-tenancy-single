@@ -2445,7 +2445,7 @@ prometheus:
 
     ## enable --web.enable-remote-write-receiver flag on prometheus-server
     ##
-    enableRemoteWriteReceiver: false
+    enableRemoteWriteReceiver: true
 
     ## Name of the external label used to denote replica name
     ##
@@ -2681,10 +2681,10 @@ prometheus:
     resources:
       limits:
         cpu: 250m
-        memory: 200Mi
+        memory: 256Mi
       requests:
         cpu: 50m
-        memory: 128Mi
+        memory: 256Mi
     # requests:
     #   memory: 400Mi
 
