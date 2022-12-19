@@ -744,8 +744,8 @@ grafana:
       cpu: 100m
       memory: 500Mi
     requests:
-      cpu: 10m
-      memory: 200Mi
+      cpu: 70m
+      memory: 300Mi
   adminPassword: prom-operator
 
   rbac:
