@@ -1660,7 +1660,7 @@ prometheusOperator:
       resources:
         limits:
           cpu: 10m
-          memory: 200Mi
+          memory: 20Mi
         requests:
           cpu: 10m
           memory: 20Mi
@@ -1954,10 +1954,10 @@ prometheusOperator:
     # resource config for prometheusConfigReloader
     resources:
       requests:
-        cpu: 200m
+        cpu: 50m
         memory: 50Mi
       limits:
-        cpu: 200m
+        cpu: 100m
         memory: 50Mi
 
   ## Thanos side-car image when configured
