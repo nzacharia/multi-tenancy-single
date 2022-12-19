@@ -10,9 +10,15 @@ org:
           - name: app-1
             flux:
               path: ./team-manifests/tenant-a/app-1
+            podLimits:
+               memory: 256Mi
+               cpu:  500m
           - name: app-2
             flux:
               path: ./team-manifests/tenant-a/app-2
+            podLimits:
+               memory: 256Mi
+               cpu:  500m
           - name: team-a-monitoring
             flux:
               path: ./team-manifests/tenant-a/team-a-monitoring/kube-prometheus-stack/
@@ -26,6 +32,12 @@ org:
          - name: app-4
            flux:
               path: ./team-manifests/tenant-b/app-4
+           podLimits:
+               memory: 256Mi
+               cpu:  500m 
          - name: app-3
            flux:
               path: ./team-manifests/tenant-b/app-3
+           podLimits:
+               memory: 256Mi
+               cpu:  500m 

@@ -58,7 +58,7 @@ kind: Namespace
 metadata:
   name: {{ $subnsName.name }}
   labels:
-    name: {{ $subnsName.anme }}
+    name: {{ $subnsName.name }}
     platform/type: subnamespace
     {{- include "landlord.labels" $ | nindent 4 }}
 ---
