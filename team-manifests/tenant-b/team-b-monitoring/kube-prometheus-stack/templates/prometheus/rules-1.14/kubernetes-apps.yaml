@@ -198,9 +198,9 @@ spec:
 {{- if .Values.defaultRules.additionalRuleAnnotations }}
 {{ toYaml .Values.defaultRules.additionalRuleAnnotations | indent 8 }}
 {{- end }}
-        description:  {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels. {{`}}`}} has not finished or progressed for at least 15 minutes.
+        description: DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} has not finished or progressed for at least 15 minutes.
         runbook_url: {{ .Values.defaultRules.runbookUrl }}/kubernetes/kubedaemonsetrolloutstuck
-        summary:  rollout is stuck.
+        summary: DaemonSet rollout is stuck.
       expr: |-
         (
           (
@@ -255,9 +255,9 @@ spec:
 {{- if .Values.defaultRules.additionalRuleAnnotations }}
 {{ toYaml .Values.defaultRules.additionalRuleAnnotations | indent 8 }}
 {{- end }}
-        description: '{{`{{`}} $value {{`}}`}} Pods of  {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels. {{`}}`}} are not scheduled.'
+        description: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are not scheduled.'
         runbook_url: {{ .Values.defaultRules.runbookUrl }}/kubernetes/kubedaemonsetnotscheduled
-        summary:  pods are not scheduled.
+        summary: DaemonSet pods are not scheduled.
       expr: |-
         kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"}
           -
@@ -275,9 +275,9 @@ spec:
 {{- if .Values.defaultRules.additionalRuleAnnotations }}
 {{ toYaml .Values.defaultRules.additionalRuleAnnotations | indent 8 }}
 {{- end }}
-        description: '{{`{{`}} $value {{`}}`}} Pods of  {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels. {{`}}`}} are running where they are not supposed to run.'
+        description: '{{`{{`}} $value {{`}}`}} Pods of DaemonSet {{`{{`}} $labels.namespace {{`}}`}}/{{`{{`}} $labels.daemonset {{`}}`}} are running where they are not supposed to run.'
         runbook_url: {{ .Values.defaultRules.runbookUrl }}/kubernetes/kubedaemonsetmisscheduled
-        summary:  pods are misscheduled.
+        summary: DaemonSet pods are misscheduled.
       expr: kube_daemonset_status_number_misscheduled{job="kube-state-metrics", namespace=~"{{ $targetNamespace }}"} > 0
       for: 15m
       labels:
