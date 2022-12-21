@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-10-deployment
+  labels: 
+    app: app-10
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels: 
+          app: app-10
+  template:
+    metadata:
+      labels: 
+        app: app-10
+    spec:
+      containers:
+        - name: app-10
+          image: nzacharia/ref-service:v1
+          imagePullPolicy: Never
+          ports:
+            - name: service
+              containerPort: 8080
+            - name: metrics
+              containerPort: 8001
+          resources:
+           requests:
+               memory: 256Mi
+               cpu:  500m
+           limits:
+               memory: 256Mi
+               cpu:  500m
