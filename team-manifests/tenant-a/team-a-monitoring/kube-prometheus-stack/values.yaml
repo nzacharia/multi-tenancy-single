@@ -1701,7 +1701,7 @@ prometheusOperator:
   networkPolicy:
     ## Enable creation of NetworkPolicy resources.
     ##
-    enabled: false
+    enabled: true
 
   ## Service account for Alertmanager to use.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/

@@ -1,27 +1,14 @@
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
 metadata:
-  name: team-a-monitoring
-  namespace: team-a-monitoring
+  name: restrict-development-access
 spec:
-  endpointSelector: {}
+  namespaceSelector: 'name == "app-1"'
   ingress:
-    - fromEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace.labels.namespace: app-1
+    - action: Allow
+      source:
+        namespaceSelector: 'name == "app-1"'
   egress:
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
-            k8s-app: kube-dns
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
-          rules:
-            dns:
-              - matchPattern: "*"
-    - toEndpoints:
-        - matchLabels:
-            app: app-1
-            io.kubernetes.pod.namespace: app-1
+    - action: Allow
+      destination:
+        namespaceSelector: 'name == "app-1"'
