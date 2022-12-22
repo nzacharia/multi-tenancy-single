@@ -149,7 +149,7 @@ spec:
 {{- end }}
       serviceAccountName: {{ template "kube-prometheus-stack.operator.serviceAccountName" . }}
 {{- if .Values.prometheusOperator.hostNetwork }}
-      hostNetwork: false
+      hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
 {{- end }}
     {{- with .Values.prometheusOperator.nodeSelector }}
