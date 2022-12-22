@@ -2445,7 +2445,7 @@ prometheus:
 
     ## enable --web.enable-remote-write-receiver flag on prometheus-server
     ##
-    enableRemoteWriteReceiver: true
+    enableRemoteWriteReceiver: false
 
     ## Name of the external label used to denote replica name
     ##
