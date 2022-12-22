@@ -1,7 +1,8 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: untitled-policy
+  name: team-a-monitoring
+  namespace: team-a-monitoring
 spec:
   endpointSelector: {}
   ingress:
