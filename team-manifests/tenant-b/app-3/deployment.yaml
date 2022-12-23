@@ -23,7 +23,7 @@ spec:
       containers:
         - name: app-10
           image: nzacharia/ref-service:v1
-          imagePullPolicy: Never
+          imagePullPolicy: "IfNotPresent"
           ports:
             - name: service
               containerPort: 8080
