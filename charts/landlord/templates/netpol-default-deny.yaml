@@ -1,12 +1,42 @@
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  namespace: app-1
-  name: default-deny
-spec:
-  podSelector: 
-    matchLabels:
-      app: app-1
-  policyTypes:
-  - Ingress
-  - Egress
+# apiVersion: networking.k8s.io/v1
+# kind: NetworkPolicy
+# metadata:
+#   namespace: cecg
+#   name: default-deny
+# spec:
+#   podSelector: {}
+#   policyTypes:
+#   - Ingress
+#   - Egress
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: NetworkPolicy
+# metadata:
+#   namespace: team-a-monitoring
+#   name: default-deny24
+# spec:
+#   podSelector: {}
+#   policyTypes:
+#   - Egress
+#   egress:
+#   # allow DNS resolution
+#   - to:
+#     - namespaceSelector:
+#         matchLabels:
+#           name: app-1
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: NetworkPolicy
+# metadata:
+#   namespace: app-1
+#   name: default-deny2434
+# spec:
+#   podSelector: {}
+#   policyTypes:
+#   - Ingress
+#   ingress:
+#   # allow DNS resolution
+#   - from:
+#     - namespaceSelector:
+#         matchLabels:
+#           name: team-a-monitoring
