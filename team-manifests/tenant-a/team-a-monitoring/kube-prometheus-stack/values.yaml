@@ -8,7 +8,7 @@ nameOverride: ""
 
 ## Override the deployment namespace
 ##
-namespaceOverride: "team-a-monitoring"
+namespaceOverride: ""
 
 ## Provide a k8s version to auto dashboard import script example: kubeTargetVersionOverride: 1.16.6
 ##
@@ -1606,7 +1606,7 @@ prometheusOperator:
     # Value must match version names from https://golang.org/pkg/crypto/tls/#pkg-constants
     tlsMinVersion: VersionTLS13
     # The default webhook port is 10250 in order to work out-of-the-box in GKE private clusters and avoid adding firewall rules.
-    internalPort: 10260
+    internalPort: 10250
 
   ## Admission webhook support for PrometheusRules resources added in Prometheus Operator 0.30 can be enabled to prevent incorrectly formatted
   ## rules from making their way into prometheus and potentially preventing the container from starting
@@ -1701,7 +1701,7 @@ prometheusOperator:
   networkPolicy:
     ## Enable creation of NetworkPolicy resources.
     ##
-    enabled: true
+    enabled: false
 
   ## Service account for Alertmanager to use.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -2900,7 +2900,7 @@ prometheus:
 
     ## IgnoreNamespaceSelectors if set to true will ignore NamespaceSelector settings from the podmonitor and servicemonitor
     ## configs, and they will only discover endpoints within their current namespace. Defaults to false.
-    ignoreNamespaceSelectors: true
+    ignoreNamespaceSelectors: false
 
     ## EnforcedNamespaceLabel enforces adding a namespace label of origin for each alert and metric that is user created.
     ## The label value will always be the namespace of the object that is being created.
