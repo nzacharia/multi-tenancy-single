@@ -1,3 +1,20 @@
+
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgres-pv-volume-3  # Sets PV's name
+  labels:
+    type: local  # Sets PV's type to local
+    app: postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Mi # Sets PV Volume
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "db-data"
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -5,7 +22,7 @@ metadata:
   labels:
     app: postgres
 spec:
-  volumeName: postgres-pv-volume
+  volumeName: postgres-pv-volume-3
   storageClassName: ""
   accessModes:
     - ReadWriteMany  # Sets read and write access
