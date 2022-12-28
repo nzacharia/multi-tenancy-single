@@ -18,7 +18,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pv-claim  # Sets name of PVC
+  name: postgres-pv-claim-app-1  # Sets name of PVC
   labels:
     app: postgres
 spec:
