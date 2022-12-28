@@ -11,9 +11,97 @@ kubectl hns config describe
 
 kubectl get netepol -A 
 
+echo "################################################"
+echo "                                               #"
+echo "Testing connections without Network Policies   #"
+echo "                                               #"
+echo "################################################"
 
-cat ./charts/landlord/templates/netpol-default-deny.yaml
+
+
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-1/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-2 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-2/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-3/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
 
 
 
-helm upgrade hnc-namespaces  ./charts/landlord/ -f ./charts/landlord/values.sample.yaml
+
+
+cat << EOF >> ./charts/landlord/templates/netpol-default-deny.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: cecg
+  name: deny-from-other-namespaces
+spec:
+  podSelector:
+    matchLabels:
+  ingress:
+  - from:
+    - podSelector: {}
+---
+EOF
+
+ helm upgrade hnc-namespaces  ./charts/landlord/ -f ./charts/landlord/values.sample.yaml
+
+echo "#######################################################################"
+echo "                                                                      #"
+echo "Testing connections : Network Policies -  deny-from-other-namespaces  #"
+echo "                                                                      #"
+echo "#######################################################################"
+
+
+
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-1/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-2 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-2/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-3/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
