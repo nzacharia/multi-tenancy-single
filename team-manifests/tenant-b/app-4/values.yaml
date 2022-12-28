@@ -16,6 +16,6 @@ resources:
 image:
   registry: nzacharia
   repository: ref-service
-  tag: v1
+  tag: v4
 
   
