@@ -23,7 +23,7 @@ metadata:
     app: postgres
 spec:
   volumeName: postgres-pv-volume-3
-  storageClassName: ""
+  storageClassName: manual
   accessModes:
     - ReadWriteMany  # Sets read and write access
   resources:
