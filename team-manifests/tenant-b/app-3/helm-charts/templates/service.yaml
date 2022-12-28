@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+   prometheus.io/scrape: "true"
+  name: app-3
+  labels: &labels
+    app: app-3
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: {{ .Values.referenceport.serviceport }}
+    targetPort: {{ .Values.referenceport.containerport }}
+  - name: metrics
+    protocol: TCP
+    port: {{ .Values.metricsport.serviceport }}
+    targetPort: {{ .Values.metricsport.containerport }}
+  selector: *labels

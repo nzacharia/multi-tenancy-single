@@ -1,0 +1,19 @@
+#! /bin/bash
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+
+
+kubectl hns config set-resource networkpolicies --mode Propagate
+
+kubectl hns config describe
+
+
+kubectl get netepol -A 
+
+
+cat ./charts/landlord/templates/netpol-default-deny.yaml
+
+
+
+helm upgrade hnc-namespaces  ./charts/landlord/ -f ./charts/landlord/values.sample.yaml

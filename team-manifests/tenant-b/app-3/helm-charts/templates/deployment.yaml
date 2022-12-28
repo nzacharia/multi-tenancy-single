@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-3
+  labels: &labels
+    app: app-3
+spec:
+  selector:
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - name: ref-app-3
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - name: {{ .Values.referenceport.name }}
+              containerPort: {{ .Values.referenceport.containerport }}
+            - name: {{ .Values.metricsport.name }}
+              containerPort: {{ .Values.metricsport.containerport }}
+          resources:
+           requests:
+             memory: "{{ .Values.resources.requests.memory }}"
+             cpu: "{{ .Values.resources.requests.cpu }}"
+           limits:
+             memory: "{{ .Values.resources.limits.memory }}"
+             cpu: "{{ .Values.resources.limits.cpu }}"
