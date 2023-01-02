@@ -35,18 +35,18 @@ echo "                                                    "
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "                                                             "
-echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Connection APP-3 Namespace -> APP-3 Namespace   "
 echo " Result:                                             "
 kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-3/hello
 echo "                                                    "
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "                                                             "
-echo " Connection APP-3 Namespace -> APP-1 Namespace   "
-echo " Result:                                             "
-kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
-echo "                                                    "
-echo "-------------------------------------------------------------"
+# echo " Connection APP-3 Namespace -> APP-4 Namespace   "
+# echo " Result:                                             "
+# kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+# echo "                                                    "
+# echo "-------------------------------------------------------------"
 
 
 
@@ -93,15 +93,33 @@ echo "                                                    "
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "                                                             "
-echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Connection APP-3 Namespace -> APP-3 Namespace   "
 echo " Result:                                             "
 kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-3/hello
 echo "                                                    "
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
-echo "                                                             "
-echo " Connection APP-3 Namespace -> APP-1 Namespace   "
-echo " Result:                                             "
-kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
-echo "                                                    "
-echo "-------------------------------------------------------------"
+# echo "                                                             "
+# echo " Connection APP-3 Namespace -> APP-4 Namespace   "
+# echo " Result:                                             "
+# kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+# echo "                                                    "
+# echo "-------------------------------------------------------------"
+
+cat << EOF >> ./charts/landlord/templates/netpol-default-deny.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: tenant-a
+  name: teanant-a-allow-team-a-monitoring
+spec:
+  podSelector:
+    matchLabels:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: team-a-monitoring
+---
+EOF
+
