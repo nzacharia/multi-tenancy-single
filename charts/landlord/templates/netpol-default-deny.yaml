@@ -1,0 +1,71 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: cecg
+  name: deny-from-other-namespaces
+spec:
+  podSelector:
+    matchLabels:
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector: {}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: cecg
+  name: allow-egress-kube-dns
+spec:
+  podSelector:
+    matchLabels:
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+      - port: 53
+        protocol: UDP
+      - port: 53
+        protocol: TCP
+  - to:
+     - podSelector:
+        matchLabels: 
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: tenant-a
+  name: tenant-a-allow-ingress-team-a-monitoring
+spec:
+  podSelector:
+    matchLabels:
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: team-a-monitoring
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  namespace: tenant-a
+  name: tenant-a-allow-egress-to-team-a-monitoring
+spec:
+  podSelector:
+    matchLabels:
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: team-a-monitoring
+---
