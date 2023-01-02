@@ -18,36 +18,108 @@ echo "                                               #"
 echo "################################################"
 
 
-
+############## App 1 #######################################
 echo "-------------------------------------------------------------"
 echo "                                                             "
-echo " Connection APP-3 Namespace -> APP-1 Namespace   "
+echo " Connection APP-1 Namespace -> APP-1 Namespace   "
 echo " Result:                                             "
-kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-1/hello
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-1 --command   --  wget -qO- --timeout=2 http://reference.app-1/hello
 echo "                                                    "
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "                                                             "
-echo " Connection APP-3 Namespace -> APP-2 Namespace   "
+echo " Connection APP-1 Namespace -> APP-4 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-1 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-1 Namespace -> Team-A-Monitoring Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-1 --command   --  wget -qO- --timeout=2 http://reference.app-2/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-1 Namespace -> Team-B-Monitoring Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-2/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+############## App 4 #######################################
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-4 Namespace -> APP-4 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-4 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-4 Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-4 --command   --  wget -qO- --timeout=2 http://reference.app-1/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection APP-4 Namespace -> Team-A-Monitoring Namespace   "
 echo " Result:                                             "
 kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-2/hello
 echo "                                                    "
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "                                                             "
-echo " Connection APP-3 Namespace -> APP-3 Namespace   "
+echo " Connection APP-4 Namespace -> Team-B-Monitoring Namespace   "
 echo " Result:                                             "
-kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-3/hello
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-2/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+############## Prometheus Team-A-Monitoring #######################################
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection Team-A-Monitoring Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n team-a-monitoring --command   --  wget -qO- --timeout=2 http://reference.app-1/hello
 echo "                                                    "
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "                                                             "
-# echo " Connection APP-3 Namespace -> APP-4 Namespace   "
-# echo " Result:                                             "
-# kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
-# echo "                                                    "
-# echo "-------------------------------------------------------------"
-
+echo " Connection Team-A-Monitoring Namespace -> APP-4 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n team-a-monitoring --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection Team-A-Monitoring Namespace -> Team-B-Monitoring Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n app-3 --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+############## Prometheus Team-B-Monitoring #######################################
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection Team-B-Monitoring Namespace -> APP-1 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n team-b-monitoring --command   --  wget -qO- --timeout=2 http://reference.app-1/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection Team-B-Monitoring Namespace -> APP-4 Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n team-b-monitoring --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
+echo "-------------------------------------------------------------"
+echo "                                                             "
+echo " Connection Team-B-Monitoring Namespace -> Team-B-Monitoring Namespace   "
+echo " Result:                                             "
+kubectl run -it --rm --restart=Never wget-pod --image=alpine  -n team-b-monitoring --command   --  wget -qO- --timeout=2 http://reference.app-4/hello
+echo "                                                    "
+echo "-------------------------------------------------------------"
 
 
 

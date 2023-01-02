@@ -1,6 +1,6 @@
 
 # Minikube start without cni
-minikube start --network-plugin=cni  --kubernetes-version=v1.24.3 --extra-config=kubeadm.pod-network-cidr=192.168.0.0/16
+minikube start --network-plugin=cni  --kubernetes-version=v1.24.3 --extra-config=kubeadm.pod-network-cidr=10.244.0.0/16
 
 # Apply calico , hnc , flux , gatekeeper
 k create -f setup/1-tigera-operator.yaml
