@@ -9,10 +9,10 @@ metricsport:
 resources:
   requests:
     memory: 256Mi
-    cpu:  500m
+    cpu:  250m
   limits:
     memory: 256Mi
-    cpu:  500m
+    cpu:  250m
 image:
   registry: nzacharia
   repository: ref-service
