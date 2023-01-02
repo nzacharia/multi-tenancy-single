@@ -1,3 +1,12 @@
+# Concept
+
+A platform engineer is responsible for cluster configuration and islation between multiple tenants.
+
+A platform engineer is administartor of repo https://github.com/nzacharia/multi-tenancy-single and is managing the cluster from 
+https://github.com/nzacharia/multi-tenancy-single/blob/main/charts/landlord/values.sample.yaml
+
+
+
 
 # Minikube start without cni
 minikube start --network-plugin=cni  --kubernetes-version=v1.24.3 --extra-config=kubeadm.pod-network-cidr=10.244.0.0/16
