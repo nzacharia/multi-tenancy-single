@@ -11,13 +11,13 @@ local: build local-stubbed-functional local-stubbed-nft
 .PHONY: build
 build:
 	pwd
-	docker compose run --rm gradle_build sh -c 'gradle service:build'
+	docker compose run --rm gradle_build sh -c './gradlew --no-daemon service:build'
 
 .PHONY: local-stubbed-functional
 local-stubbed-functional:
 	docker compose build service downstream database --no-cache
 	docker compose up -d service downstream database waitForHealthyPods
-	docker compose run --rm gradle_build sh -c 'gradle functional:clean functional:test'
+	docker compose run --rm gradle_build sh -c 'gradle --no-daemon functional:clean functional:test'
 	docker compose down
 	sudo rm -rf db-data
 
@@ -30,7 +30,7 @@ local-stubbed-nft:
 
 .PHONY: stubbed-functional
 stubbed-functional:
-	docker compose run --rm gradle_build sh -c 'gradle functional:clean functional:test'
+	docker compose run --rm gradle_build sh -c './gradle --no-daemon functional:clean functional:test'
 
 .PHONY: stubbed-nft
 stubbed-nft:

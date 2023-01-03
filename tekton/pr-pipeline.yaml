@@ -76,6 +76,8 @@ spec:
                 name: dind-storage
               - mountPath: /var/run/
                 name: dind-socket
+              - name: $(workspaces.source.volume)
+                mountPath: $(workspaces.source.path)
         volumes:
           - name: dind-storage
             emptyDir: { }
