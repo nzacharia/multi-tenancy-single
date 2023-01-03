@@ -9,7 +9,7 @@ https://github.com/nzacharia/multi-tenancy-single/blob/main/charts/landlord/valu
 <img width="527" alt="image" src="https://user-images.githubusercontent.com/118350416/210253136-44d558b1-7c31-4aee-b06e-3c1f726c8bbf.png">
 
 To add a new org with name <testorg> : 
-`
+```
 org:
  - cecg:
     .
@@ -17,12 +17,12 @@ org:
  - testorg:
     flux:
       path: ./team-manifests/cecg. # This the "virtual" repo (for the bootcamp , instead of creating new repo for each org/tenant we 're creating a subfolder for each org/tenant
-`
+```
 
 
 
 To add a new tenant with name <tenanttest> : 
-`
+```
 org:
  - cecg:
     .
@@ -32,9 +32,9 @@ org:
      - tenanttest:
         flux:
            path: ./team-manifests/tenanttest
-`
+```
 To add a new subnamespace with name <subnstest> : 
-`
+```
 org:
  - cecg:
     .
@@ -51,7 +51,7 @@ org:
             podLimits:  # This is a Gatekeeper policy . Platform engineer can define the resources/limits of pods in each namespace
                memory: 256Mi
                cpu:  500m
-`
+```
 
 To remove a subnamespace / tenant / org , platform engineer has to delete the values from https://github.com/nzacharia/multi-tenancy-single/blob/main/charts/landlord/values.sample.yaml
 
