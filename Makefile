@@ -10,6 +10,7 @@ local: build local-stubbed-functional local-stubbed-nft
 
 .PHONY: build
 build:
+	pwd
 	docker compose run --rm gradle_build sh -c 'gradle service:build'
 
 .PHONY: local-stubbed-functional
