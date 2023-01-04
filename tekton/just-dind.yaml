@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dind
+spec:
+  containers:
+    - name: dind
+      image: docker:20.10-dind
+      args: ["--mtu=1454"]
+      securityContext:
+        privileged: true
+  restartPolicy: OnFailure

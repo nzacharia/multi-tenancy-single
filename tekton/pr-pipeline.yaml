@@ -59,6 +59,7 @@ spec:
               pwd
               ls -ltr
               docker info
+              sleep 180
               make build
             volumeMounts:
              - mountPath: /var/run/
@@ -66,8 +67,8 @@ spec:
         sidecars:
           - image: docker:20.10-dind
             name: docker
-            command:
-             - "--mtu=1454"
+            args:
+             - "--mtu=1480"
             securityContext:
               privileged: true
             readinessProbe:
