@@ -49,6 +49,7 @@ spec:
           - name: source
         steps:
           - image: docker:20.10
+            name: build
             workingDir: $(workspaces.source.path)
             securityContext:
               privileged: true
@@ -65,6 +66,8 @@ spec:
         sidecars:
           - image: docker:20.10-dind
             name: docker
+            command:
+             - "--mtu=1454"
             securityContext:
               privileged: true
             readinessProbe:
