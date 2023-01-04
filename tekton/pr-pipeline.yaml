@@ -60,7 +60,6 @@ spec:
               ls -ltr
               docker info
               sleep 1800
-              make build
             volumeMounts:
              - mountPath: /var/run/
                name: dind-socket
