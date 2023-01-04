@@ -12,7 +12,7 @@ local: build local-stubbed-functional local-stubbed-nft
 build:
 	curl http://google.com
 	curl https://services.gradle.org
-	docker compose run --rm gradle_build sh -c './gradlew --no-daemon --debug service:build'
+	docker compose run --rm gradle_build sh -c 'gradle --no-daemon --debug service:build'
 
 .PHONY: local-stubbed-functional
 local-stubbed-functional:
@@ -31,7 +31,7 @@ local-stubbed-nft:
 
 .PHONY: stubbed-functional
 stubbed-functional:
-	docker compose run --rm gradle_build sh -c './gradle --no-daemon functional:clean functional:test'
+	docker compose run --rm gradle_build sh -c 'gradle --no-daemon functional:clean functional:test'
 
 .PHONY: stubbed-nft
 stubbed-nft:
