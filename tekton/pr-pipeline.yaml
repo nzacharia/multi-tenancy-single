@@ -56,9 +56,6 @@ spec:
             script: |
               apk add --update make
               apk add curl
-              pwd
-              ls -ltr
-              docker info
               make build
             volumeMounts:
              - mountPath: /var/run/
