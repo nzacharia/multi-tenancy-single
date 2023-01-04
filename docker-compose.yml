@@ -1,4 +1,9 @@
 version: '3'
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1452
 services:
   gradle_build:
     image: gradle:7.5.1-jdk17

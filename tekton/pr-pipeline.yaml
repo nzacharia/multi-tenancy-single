@@ -67,7 +67,7 @@ spec:
           - image: docker:20.10-dind
             name: docker
             args:
-             - "--mtu=1500"
+             - "--mtu=1452"
             securityContext:
               privileged: true
             readinessProbe:
