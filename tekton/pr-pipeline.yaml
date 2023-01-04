@@ -54,6 +54,7 @@ spec:
               privileged: true
             script: |
               apk add --update make
+              apk add curl
               pwd
               ls -ltr
               docker info
