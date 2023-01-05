@@ -5,8 +5,7 @@ metadata:
   namespace: reference-service-ci
 spec:
   description: |
-    cat-pr-readme takes a git repository and a PR number and
-    prints the README.md file from that PR.
+    Runs a make build for each PR
   params:
     - name: repo-url
       type: string
@@ -64,7 +63,7 @@ spec:
           - image: docker:20.10-dind
             name: docker
             args:
-             - "--mtu=1452"
+             - "--mtu=1452" # required for running in minikube
             securityContext:
               privileged: true
             readinessProbe:
