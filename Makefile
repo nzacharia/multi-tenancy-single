@@ -10,8 +10,6 @@ local: build local-stubbed-functional local-stubbed-nft
 
 .PHONY: build
 build:
-	curl http://google.com
-	curl https://services.gradle.org
 	docker compose run --rm gradle_build sh -c 'gradle --no-daemon service:build'
 
 .PHONY: local-stubbed-functional

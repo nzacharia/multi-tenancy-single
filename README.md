@@ -1,4 +1,4 @@
-# CECG Reference Application - Java 
+# Reference Application - Java 
 
 ## P2P Interface
 
@@ -10,6 +10,17 @@ For the CECG reference this follows the [3 musketeers pattern](https://3musketee
 * Compose
 
 These all need to be installed.
+
+## P2P Tooling
+
+### GitHub Actions
+
+ci.yaml in .github/workflows shows how GitHub actions can execute 
+This same GitHub action can be used for many repos using different technoloiges as long as the same Make targets are defined.
+
+### Tekton
+
+[Instructions for how to setup](./tekton/README.md) a WebHook that calls a locally running Tekton. 
 
 ## Structure
 
